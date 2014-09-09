@@ -17,10 +17,10 @@ if (NOT DEFINED CMAKE_INSTALL_LIBDIR)
 	# directory with the name GNUInstallDirs (without the extension).
 endif()
 
-option(BUILD_HIDAPI_SHARED "Build with shared version of HIDAPI" ON)
+option(BUILD_HIDAPI_SHARED "Build with shared version of HIDAPI" OFF)
 
-option(BUILD_SHARED_LIB "Build shared version of tempered library" ON)
-option(BUILD_STATIC_LIB "Build static version of tempered library" OFF)
+option(BUILD_SHARED_LIB "Build shared version of tempered library" OFF)
+option(BUILD_STATIC_LIB "Build static version of tempered library" ON)
 
 cmake_dependent_option(
 	BUILD_UTILITIES "Build the utilities" ON
@@ -54,13 +54,10 @@ else()
 	)
 	set(HIDAPI_STATIC_OBJECT ${HIDAPI_OBJECT})
 	find_package(PkgConfig REQUIRED)
-	if (HIDAPI_OBJECT MATCHES \(-libusb|/libusb/(.libs/)?hid\)\\.o\$)
-		pkg_check_modules(LIBUSB REQUIRED libusb-1.0)
-		set(HIDAPI_LINK_LIBS ${LIBUSB_LIBRARIES} rt pthread)
-	else()
-		pkg_check_modules(LIBUDEV REQUIRED libudev)
-		set(HIDAPI_LINK_LIBS ${LIBUDEV_LIBRARIES})
-	endif()
+	#pkg_check_modules(LIBUSB REQUIRED libusb-1.0)
+	#set(HIDAPI_LINK_LIBS ${LIBUSB_LIBRARIES} rt pthread)
+	pkg_check_modules(LIBUDEV REQUIRED libudev)
+	set(HIDAPI_LINK_LIBS ${LIBUDEV_LIBRARIES})
 endif()
 
 include_directories(${HIDAPI_HEADER_DIR})

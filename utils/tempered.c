@@ -145,7 +145,7 @@ void print_device_sensor( tempered_device *device, int sensor, struct my_options
 	}
 	if ( ( type & TEMPERED_SENSOR_TYPE_TEMPERATURE ) && ( type & TEMPERED_SENSOR_TYPE_HUMIDITY )) {
 		if(options->batch) {
-			printf( "%s|%.2f|%.2f|%.2f\n", dev_path, tempC, rel_hum, tempered_util__get_dew_point( tempC, rel_hum ));
+			printf( "'%s', %.2f, %.2f, %.2f\n", dev_path, tempC, rel_hum, tempered_util__get_dew_point( tempC, rel_hum ));
 		}
 		else {
 			printf( "%s %i: temperature %.2f C" ", relative humidity %.1f%%" ", dew point %.1f C\n",
